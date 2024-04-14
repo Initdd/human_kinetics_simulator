@@ -7,7 +7,7 @@ The program is written in `python` and uses the `pygame` library to display the 
 I aimed for the simplest interface imaginable, ensuring it could be effortlessly used without any technical hurdles.  
 It works by reading commands inputed by the user and moving the limbs accordingly.
 
-> [!ATTENTION]  
+> [!TIP]  
 > The following scripts assume you are using a Unix-like system.
 If you are using Windows, you'll need to replace the `python3` command with just `python`.
 
@@ -34,7 +34,6 @@ make
 # to only install the dependencies
 make init
 ```
-This will install the dependencies, run the tests and then run the program.
 
 To get the dependencies manually, use pip:
 ```bash
