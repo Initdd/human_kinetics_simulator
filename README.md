@@ -3,16 +3,9 @@
 ## Overview
 This is project was made to test the movement of the human limbs
 for a project of a friend (When it is published I can put the link here).  
-The program is written in python and uses the pygame library to display the "wanna-be" limbs.  
+The program is written in `python` and uses the `pygame` library to display the "wanna-be" limbs.  
 I aimed for the simplest interface imaginable, ensuring it could be effortlessly used without any technical hurdles.  
-It works by reading commands inputed by the user and moving the limbs accordingly.  
-The commands look like this:
-```
-UP 50
-DOWN 90
-MID 30
-```
-Where UP, DOWN and MID are the parts of the limb and the number is the angle in degrees.
+It works by reading commands inputed by the user and moving the limbs accordingly.
 
 > [!ATTENTION]  
 > The following scripts assume you are using a Unix-like system.
@@ -24,6 +17,11 @@ If you are using Windows, you'll need to replace the `python3` command with just
   - added before the simulation starts, on the actions list
   - added during the simulation, on the command line
 - The parts can be moved individually or all at once
+
+## Documentation
+- The documentation is available on the [docs](docs) folder.  
+- For detailed information on the real-time simulation, check the [Real-Time Simulation](docs/real_time_simulation.md) documentation.  
+- For detailed information on the Leg object, check the [Leg](docs/leg.md) documentation.
 
 ## Dependencies
 - Python 3.8

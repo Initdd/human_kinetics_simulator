@@ -23,10 +23,12 @@ class Leg(Limb):
 		Class to represent a leg
 
 		Attributes:
-			name: The name of the leg
 			length: The length of the leg
-			angle: The angle of the leg
 			position: The position of the leg
+			actions: The actions to be executed
+			increment: The increment to increase the angle of the leg
+			action_idx: The action index for each part
+			dispach_buffer: The dispach buffer
 	"""
 
 	class Part(enumerate):
