@@ -21,6 +21,17 @@ INITIAL_ANGLES = (0, 0, 0)
 INITIAL_POSITION = (100, 100)
 LENGTH = 50
 
+# Functions
+def is_number(s: str) -> bool:
+	"""
+		Check if a string is a number
+	"""
+	try:
+		float(s)
+		return True
+	except ValueError:
+		return False
+
 # Create a Leg object
 actions = [
 	(Leg.Part.DOWN, -45),
@@ -51,15 +62,33 @@ def dispach_command() -> None:
 		Angles:
 			- Any integer number
 	"""
+	HELP_MESSAGE = """
+	Commands:
+		- "help": Show the help message
+		- "exit": Exit the program
+		- action: Add a specified action to the leg
+
+	Actions: Composed by: "part angle"
+		e.g.: "UP 45" -> Move the UP part 45 degrees
+
+	Parts:
+		- UP
+		- MID
+		- DOWN
+
+	Angles:
+		- Any integer number
+	"""
 	command = input(">: ")
 	if command == "help":
-		print(dispach_command.__doc__)
+		print(HELP_MESSAGE)
 	elif command == "exit":
 		pygame.quit()
 		quit()
 	else:
-		part, angle = command.split()
-		if part not in ["UP", "MID", "DOWN"] or not angle.isdigit():
+		part, angle = command.split(" ")
+		# check if the part is valid and the angle is a number (can be negative) 
+		if part not in ["UP", "MID", "DOWN"] or not is_number(angle):
 			print("Invalid command")
 			return
 		angle = int(angle)
