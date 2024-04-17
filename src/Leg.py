@@ -67,9 +67,16 @@ class Leg(Limb):
 			"""
 			return "UP" if self == self.UP else "MID" if self == self.MID else "DOWN"
 		
+		def _validate_str_part(part: str) -> bool:
+			"""
+				Validate if a string is a valid part
+
+				Valid parts: (UP, U), (MID, M), (DOWN, D)
+			"""
+			return part.upper() in ["UP", "MID", "DOWN"] or part.upper() in ["U", "M", "D"]
+		
 		# function to get the part from a string
-		@staticmethod
-		def from_str(part: str) -> int:
+		def from_str(self, str_part: str) -> tp.Optional[int]:
 			"""
 				Method to get the part from a string
 
@@ -79,8 +86,10 @@ class Leg(Limb):
 				Returns:
 					The part as an integer or None if the part is invalid
 			"""
-			return Leg.Part.UP if part == "UP" else Leg.Part.MID if part == "MID" else Leg.Part.DOWN if part == "DOWN" else None
-		
+			if not self._validate_str_part(str_part): return None
+			return self.UP if str_part.upper() in ["UP", "U"] else self.MID if str_part.upper() in ["MID", "M"] else self.DOWN
+	
+
 	
 	def __init__(self, length: float, position: tp.Tuple[float, float], start_angles: tp.Tuple[int], actions: tp.List[tuple[Part, int]], increment: int) -> None:
 		# Length of each part of the leg

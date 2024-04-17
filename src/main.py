@@ -31,7 +31,7 @@ def is_number(s: str) -> bool:
 		return True
 	except ValueError:
 		return False
-
+	
 # Create a Leg object
 actions = [
 	(Leg.Part.DOWN, -45),
@@ -87,12 +87,12 @@ def dispach_command() -> None:
 		quit()
 	else:
 		part, angle = command.split(" ")
-		# check if the part is valid and the angle is a number (can be negative) 
-		if part not in ["UP", "MID", "DOWN"] or not is_number(angle):
+		# check if the part is valid and the angle is a number (can be negative)
+		part = Leg.Part.from_str(part)
+		if not is_number(angle) or not part:
 			print("Invalid command")
 			return
 		angle = int(angle)
-		part = Leg.Part.from_str(part)
 		actions.append((part, angle))
 
 # set and start the command line thread
