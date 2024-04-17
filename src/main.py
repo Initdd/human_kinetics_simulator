@@ -3,7 +3,7 @@ import time
 import pygame
 from pygame.locals import *
 import typing as tp
-from src.Leg import Leg
+from src.Leg import Leg, Part
 
 # Initialize Pygame
 pygame.init()
@@ -21,6 +21,8 @@ INITIAL_ANGLES = (0, 0, 0)
 INITIAL_POSITION = (100, 100)
 LENGTH = 50
 
+
+
 # Functions
 def is_number(s: str) -> bool:
 	"""
@@ -34,10 +36,10 @@ def is_number(s: str) -> bool:
 	
 # Create a Leg object
 actions = [
-	(Leg.Part.DOWN, -45),
-	(Leg.Part.MID, 45),
-	(Leg.Part.DOWN, 45),
-	(Leg.Part.UP, 45),
+	(Part.DOWN, -45),
+	(Part.MID, 45),
+	(Part.DOWN, 45),
+	(Part.UP, 45),
 ]
 leg = Leg(LENGTH, INITIAL_POSITION, INITIAL_ANGLES, actions, INCREMENT)
 
@@ -88,7 +90,7 @@ def dispach_command() -> None:
 	else:
 		part, angle = command.split(" ")
 		# check if the part is valid and the angle is a number (can be negative)
-		part = Leg.Part.from_str(part)
+		part = Part.from_str(part)
 		if not is_number(angle) or not part:
 			print("Invalid command")
 			return

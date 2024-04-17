@@ -1,6 +1,9 @@
 
+from enum import Enum
 import typing as tp
 from parts.limb import Limb
+from parts.part import Part
+
 
 # Constants
 ANGLE_DEC_PLACES = 2
@@ -31,66 +34,6 @@ class Leg(Limb):
 			dispach_buffer: The dispach buffer
 	"""
 
-	class Part(enumerate):
-		"""
-			Enum to represent the parts of the leg
-		"""
-		UP = 0
-		MID = 1
-		DOWN = 2
-		NUM_PARTS = 3
-
-		def get_others(self) -> tp.List[int]:
-			"""
-				Method to get the other parts of the leg
-
-				Returns:
-					The other parts of the leg
-			"""
-			return [part for part in Limb.Part if part != self]
-		
-		def get_bottoms(self) -> tp.List[int]:
-			"""
-				Method to get the bottom parts of the leg from a part
-
-				Returns:
-					The bottom parts of the leg from the part
-			"""
-			return [part for part in Limb.Part if part > self]
-		
-		def __str__(self) -> str:
-			"""
-				Method to convert the part to a string
-
-				Returns:
-					The part as a string
-			"""
-			return "UP" if self == self.UP else "MID" if self == self.MID else "DOWN"
-		
-		def _validate_str_part(part: str) -> bool:
-			"""
-				Validate if a string is a valid part
-
-				Valid parts: (UP, U), (MID, M), (DOWN, D)
-			"""
-			return part.upper() in ["UP", "MID", "DOWN"] or part.upper() in ["U", "M", "D"]
-		
-		# function to get the part from a string
-		def from_str(self, str_part: str) -> tp.Optional[int]:
-			"""
-				Method to get the part from a string
-
-				Args:
-					part: The part as a string
-
-				Returns:
-					The part as an integer or None if the part is invalid
-			"""
-			if not self._validate_str_part(str_part): return None
-			return self.UP if str_part.upper() in ["UP", "U"] else self.MID if str_part.upper() in ["MID", "M"] else self.DOWN
-	
-
-	
 	def __init__(self, length: float, position: tp.Tuple[float, float], start_angles: tp.Tuple[int], actions: tp.List[tuple[Part, int]], increment: int) -> None:
 		# Length of each part of the leg
 		self.length = length
@@ -109,8 +52,7 @@ class Leg(Limb):
 		self.actions = actions
 		# actions list index for each leg part
 		# It will be used to keep track of the current action of each part
-		# TODO: Add action index for each part!!!
-		self.action_idx = [0 for _ in range(self.Part.NUM_PARTS)]
+		self.action_idx = [0 for _ in range(len(Part))]
 		# dispach buffer. A triple buffer to keep track of the actions being executed
 		# Format:
 		# part_idx: angle
@@ -125,7 +67,7 @@ class Leg(Limb):
 		"""
 		initial_dispach_buffer = []
 		# go through all the parts of the leg (these are the indexes of the dispach buffer)
-		for i in range(self.Part.NUM_PARTS):
+		for i in range(len(Part)):
 			# set the dispach_buffer[i] to the first action that has the index i
 			for j, action in enumerate(self.actions):
 				if action[0] == i:
@@ -222,6 +164,7 @@ class Leg(Limb):
 			action = self.actions[curr_action_idx]
 			# extract the part index and the angle from the action
 			part_idx, angle = action
+			part_idx = part_idx.value
 			# check if the action idx for the part
 			# is less than the current action index
 			# if it is, continue to the next action
