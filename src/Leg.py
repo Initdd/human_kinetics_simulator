@@ -102,6 +102,7 @@ class Leg(Limb):
 		# and return True if it is
 
 		old_angle = self.get_angle(part)
+		old_angle = convert_to_positive_angle(old_angle)
 		increment = self.increment
 
 		# check if the increment needs to be negative
@@ -113,7 +114,7 @@ class Leg(Limb):
 		distance = abs(angle - old_angle)
 		# check if the distance is less than the increment
 		# if not, just add the increment to the angle
-		if distance <= self.increment:
+		if distance < self.increment:
 			# if the distance is less than the increment,
 			# we will have to calculate the increment
 			if distance != 0:
