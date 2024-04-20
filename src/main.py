@@ -1,9 +1,11 @@
+import os
 import threading
 import time
 import pygame
 from pygame.locals import *
 import typing as tp
 from src.Leg import Leg, Part
+from utils.math import is_number
 
 # Initialize Pygame
 pygame.init()
@@ -20,26 +22,12 @@ INCREMENT = 5
 INITIAL_ANGLES = (0, 0, 0)
 INITIAL_POSITION = (100, 100)
 LENGTH = 50
-
-
-
-# Functions
-def is_number(s: str) -> bool:
-	"""
-		Check if a string is a number
-	"""
-	try:
-		float(s)
-		return True
-	except ValueError:
-		return False
 	
 # Create a Leg object
 actions = [
-	(Part.DOWN, -45),
-	(Part.MID, 45),
-	(Part.DOWN, 45),
-	(Part.UP, 45),
+	#(Part.UP, 55),
+	#(Part.MID, 101),
+	#(Part.DOWN, 0),
 ]
 leg = Leg(LENGTH, INITIAL_POSITION, INITIAL_ANGLES, actions, INCREMENT)
 
@@ -87,11 +75,21 @@ def dispach_command() -> None:
 	elif command == "exit":
 		pygame.quit()
 		quit()
+	elif command == "":
+		pass
+	elif command == "cls":
+		os.system("clear")	
 	else:
-		part, angle = command.split(" ")
+		command = command.split(" ")
+		# check if the command has the correct number of arguments
+		if len(command) != 2: 
+			print("Invalid command")
+			return
+		# separate the part and the angle
+		part, angle = command
 		# check if the part is valid and the angle is a number (can be negative)
 		part = Part.from_str(part)
-		if not is_number(angle) or not part:
+		if not is_number(angle) or not part: 
 			print("Invalid command")
 			return
 		angle = int(angle)
