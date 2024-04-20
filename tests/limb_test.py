@@ -33,5 +33,19 @@ class TestLimb(unittest.TestCase):
     def test_get_length(self):
         self.assertEqual(self.limb.get_length(), 10)
 
+    def test_set_angle(self):
+        self.limb.set_angle(0, 90)
+        angle = self.limb.get_angle(0)
+        self.assertEqual(angle, 90)
+
+    def test_get_angle(self):
+        angle = self.limb.get_angle(0)
+        self.assertEqual(angle, 45)
+
+    def test_get_angle_big(self):
+        limb = Limb(10, (0, 0), [45, 95])
+        angle = limb.get_angle(1)
+        self.assertEqual(angle, 95)
+
 if __name__ == '__main__':
     unittest.main()
