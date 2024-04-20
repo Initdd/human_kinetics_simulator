@@ -95,7 +95,8 @@ class Line:
 			# Line is vertical
 			return 90
 		else:
-			return math.degrees(math.atan(slope))
+			radians = math.atan(slope)
+			return math.degrees(radians)
 
 	def rotate_on_origin(self, angle: float) -> None:
 		"""
