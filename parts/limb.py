@@ -1,6 +1,6 @@
 import typing as tp
 from utils.line import Line
-import math
+from utils.point import convert_to_positive_angle
 
 class Limb:
 	"""
@@ -110,7 +110,9 @@ class Limb:
 				The angle of the part
 		"""
 		# Get the angle of the part
-		return self.parts[part].get_rotation()
+		angle = self.parts[part].get_rotation()
+		angle = convert_to_positive_angle(angle)
+		return angle
 
 	def get_angles(self) -> tp.List[int]:
 		"""
@@ -137,6 +139,18 @@ class Limb:
 		# Because the length of each part is the same
 		# ? Might give support for different lengths for each part
 		return self.length
+	
+	def get_length_parts(self) -> tp.List[int]:
+		"""
+			Method to get the lengths of the parts of the leg
+
+			Returns:
+				The lengths of the parts of the leg
+		"""
+		# Just return the length of the leg
+		# Because the length of each part is the same
+		# ? Might give support for different lengths for each part
+		return [ part.length() for part in self.parts]
 	
 if __name__ == '__main__':
 	# Test the Limb class
