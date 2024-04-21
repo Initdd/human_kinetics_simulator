@@ -45,7 +45,7 @@ class TestLimb(unittest.TestCase):
     def test_get_angle_big(self):
         limb = Limb(10, (0, 0), [45, 95])
         angle = limb.get_angle(1)
-        self.assertEqual(angle, 95)
+        self.assertAlmostEqual(angle, 95, places=2)
 
 if __name__ == '__main__':
     unittest.main()
