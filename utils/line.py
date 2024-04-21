@@ -90,13 +90,19 @@ class Line:
 		Returns:
 			float: The rotation of the line in degrees.
 		"""
-		slope = self.slope()
-		if slope is None:
-			# Line is vertical
-			return 90
-		else:
-			radians = math.atan(slope)
-			return math.degrees(radians)
+		
+		# Calculate the angle using arctan2
+		y = self.end_point[1] - self.start_point[1]
+		x = self.end_point[0] - self.start_point[0]
+		angle = math.degrees(math.atan2(y, x))
+		
+		# Ensure the angle is within the range of 0 to 360 degrees
+		if angle < 0:
+			angle += 360
+		elif angle >= 360:
+			angle -= 360
+		
+		return angle
 
 	def rotate_on_origin(self, angle: float) -> None:
 		"""
@@ -106,12 +112,9 @@ class Line:
 		Args:
 			angle: The angle of rotation in degrees.
 		"""
-		rad = math.radians(angle)
-		x1, y1 = self.start_point
-		x2, y2 = self.end_point
-		self.start_point = (x1 * math.cos(rad) - y1 * math.sin(rad), x1 * math.sin(rad) + y1 * math.cos(rad))
-		self.end_point = (x2 * math.cos(rad) - y2 * math.sin(rad), x2 * math.sin(rad) + y2 * math.cos(rad))
-
+		self.start_point = rotate_point(self.start_point, (0, 0), angle)
+		self.end_point = rotate_point(self.end_point, (0, 0), angle)
+		
 	def rotate_on_point(self, angle: float, center: tuple[float, float]) -> None:
 		"""
 		Rotates the line around a given point by the given angle.

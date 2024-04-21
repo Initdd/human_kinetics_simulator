@@ -82,14 +82,14 @@ def dispach_command() -> None:
 	else:
 		command = command.split(" ")
 		# check if the command has the correct number of arguments
-		if len(command) != 2: 
+		if len(command) != 2:
 			print("Invalid command")
 			return
 		# separate the part and the angle
 		part, angle = command
 		# check if the part is valid and the angle is a number (can be negative)
 		part = Part.from_str(part)
-		if not is_number(angle) or not part: 
+		if not is_number(angle) or not part:
 			print("Invalid command")
 			return
 		angle = int(angle)
