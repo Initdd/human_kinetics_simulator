@@ -46,18 +46,14 @@ class TestLine(unittest.TestCase):
         self.assertAlmostEqual(self.line4.end_point[1], 4, places=5)
 
     def test_get_rotation(self):
-        line = Line((1, 1), (3, 14))
+        line = Line((0, 0), (5, 0))
+        line.rotate_on_point(90, line.start_point)
+        line.rotate_on_point(90, line.start_point)
         rotation = line.get_rotation()
-        #self.assertAlmostEqual(rotation, 78.69006752597979, places=5)
-        print(rotation)
+        self.assertAlmostEqual(rotation, 180, places=5) 
 
     def test_str(self):
         self.assertEqual(str(self.line1), "Line((0, 0), (3, 4))")
 
 if __name__ == '__main__':
-    #unittest.main()
-    line = Line((0, 0), (5, 5))
-    line.rotate_on_point(100, line.start_point)
-    rotation = line.get_rotation()
-    #self.assertAlmostEqual(rotation, 78.69006752597979, places=5)
-    print(rotation)
+    unittest.main()
